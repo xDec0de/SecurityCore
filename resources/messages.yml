@@ -9,15 +9,15 @@
 SecurityCore:
   Prefix: "&7[&b&lSecurity&9&lCore&7]"
   Error: "&8&l[&4&l!&8&l]&c"
-  NoPerm: '%error% Insuficient permissions.'
-  NotEnoughArgs: "%error% Not enough arguments."
+  NoPerm: "%error% Insuficient permissions."
 AHS:
   NotAllowed: "%error% &cThat syntax is not allowed."
-  Notify: "%prefix% &e%player% &ctried to use &e%command%&c."
+  Notify: "%prefix% &6%player% &ctried to use &e%command%&c."
 WarnCMDs:
-  Notify: "%prefix% &e%player% &cused &e%command%&c."
+  Notify: "%prefix% &6%player% &cused &e%command%&c."
 BlockedCMDs:
-  Blocked: '%error% &cThat command is blocked, try again. ;)'
+  Notify: "%prefix% &6%player% &ctried to use &e%command%&c."
+  Blocked: "%error% &cThat command is blocked, try again. ;)"
 Reload:
   Success: "&aPlugin has been reloaded."
-  Usage: '&cUsage: &e/ahs reload&c.'
+  Usage: "&cUsage: &e/sc reload&c."
