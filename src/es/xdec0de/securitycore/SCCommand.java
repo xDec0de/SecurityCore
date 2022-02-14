@@ -1,15 +1,18 @@
 package es.xdec0de.securitycore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 
 import es.xdec0de.securitycore.utils.files.SCConfig;
 import es.xdec0de.securitycore.utils.files.SCMessage;
 import es.xdec0de.securitycore.utils.files.SCMessages;
 import es.xdec0de.securitycore.utils.files.SCSetting;
 
-public class SCCommand implements CommandExecutor {
+public class SCCommand implements TabExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String command, String[] args) {
@@ -30,5 +33,15 @@ public class SCCommand implements CommandExecutor {
 		} else
 			SCMessage.NO_PERM.send(sender);
 		return true;
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+		ArrayList<String> tab = new ArrayList<String>();
+		if(args.length == 1) {
+			if(SCSetting.RELOAD_PERMISSION.asPermission(sender, false))
+				tab.add("reload");
+		}
+		return tab;
 	}
 }
