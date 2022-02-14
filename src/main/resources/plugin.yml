@@ -1,0 +1,9 @@
+name: Anti-HiddenSyntax
+main: plugin.Main
+author: herobine117
+depend: [ProtocolLib]
+version: 1.6
+commands:
+  ahs:
+    usage: /<command>
+    description: Main command of the plugin.
