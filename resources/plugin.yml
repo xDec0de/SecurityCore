@@ -4,6 +4,7 @@ author: xDec0de_
 version: ${project.version}
 depend: [ProtocolLib]
 commands:
-  ahs:
+  securitycore:
     usage: /<command>
     description: Main command of the plugin.
+    aliases: [seccore, score, sc]

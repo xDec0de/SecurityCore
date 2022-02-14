@@ -66,7 +66,7 @@ public enum SCSetting {
 	 * Checks if <b>sender</b> has permission to the setting.
 	 * 
 	 * @param sender The sender to check.
-	 * @param message Whether to send {@link BLPMessage#NO_PERM} to the sender if it doesn't have permission or not.
+	 * @param message Whether to send {@link SCMessage#NO_PERM} to the sender if it doesn't have permission or not.
 	 * 
 	 * @return true if the sender has permission, false otherwise.
 	 */

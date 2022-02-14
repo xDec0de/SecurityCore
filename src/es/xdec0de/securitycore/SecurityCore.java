@@ -4,11 +4,8 @@ import java.io.File;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,6 +16,7 @@ import com.comphenix.protocol.ProtocolManager;
 
 import es.xdec0de.securitycore.features.AntiTab;
 import es.xdec0de.securitycore.utils.files.SCConfig;
+import es.xdec0de.securitycore.utils.files.SCMessages;
 import es.xdec0de.securitycore.utils.files.SCSetting;
 
 public class SecurityCore extends JavaPlugin implements Listener, TabExecutor {
@@ -38,8 +36,10 @@ public class SecurityCore extends JavaPlugin implements Listener, TabExecutor {
 
 	private void executeEnable() {
 		SCConfig.setup(false);
+		SCMessages.setup(false);
 		if(SCSetting.ANTITAB_ENABLED.asBoolean())
 			AntiTab.setup();
+		getCommand("securitycore").setExecutor(new SCCommand());
 	}
 
     @EventHandler
@@ -119,38 +119,6 @@ public class SecurityCore extends JavaPlugin implements Listener, TabExecutor {
                 e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("syntaxnotallowed"))));
             }
         }
-    }
-
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("ahs")) {
-            if (sender.hasPermission(config.getString("ahs-command-permission"))) {
-                if (args.length == 0) {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("NotEnoughArgs"))));
-                } else if (args[0].equalsIgnoreCase("reload")) {
-                    if (sender.hasPermission(config.getString("ahs-reload-permission"))) {
-                        config = YamlConfiguration.loadConfiguration((File)this.cfile);
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("reload-msg"))));
-                    }
-                    if (!sender.hasPermission(config.getString("ahs-reload-permission"))) {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("NoPerm"))));
-                    }
-                } else if (args[0].equalsIgnoreCase("rl")) {
-                    if (sender.hasPermission(config.getString("ahs-reload-permission"))) {
-                        config = YamlConfiguration.loadConfiguration((File)this.cfile);
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("reload-msg"))));
-                    }
-                    if (!sender.hasPermission(config.getString("ahs-reload-permission"))) {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("NoPerm"))));
-                    }
-                } else {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("usage"))));
-                }
-            }
-            if (!sender.hasPermission(config.getString("ahs-command-permission"))) {
-                sender.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("NoPerm"))));
-            }
-        }
-        return true;
     }
 }
 
