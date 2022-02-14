@@ -1,7 +1,5 @@
 package es.xdec0de.securitycore;
 
-import java.io.File;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,8 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.comphenix.protocol.ProtocolManager;
-
 import es.xdec0de.securitycore.features.AntiTab;
 import es.xdec0de.securitycore.utils.files.MessageUtils;
 import es.xdec0de.securitycore.utils.files.SCConfig;
@@ -21,10 +17,7 @@ import es.xdec0de.securitycore.utils.files.SCSetting;
 
 public class SecurityCore extends JavaPlugin implements Listener {
 
-	public static SecurityCore plugin;
 	public static FileConfiguration config;
-	File cfile;
-	ProtocolManager protocolManager;
 
 	public void onEnable() {
 		executeEnable();
@@ -63,6 +56,7 @@ public class SecurityCore extends JavaPlugin implements Listener {
 		getCommand("securitycore").setExecutor(new SCCommand());
 	}
 
+	// TODO This needs a full recode...
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent e) {
         String notify;
