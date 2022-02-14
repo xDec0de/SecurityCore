@@ -1,4 +1,4 @@
-package plugin;
+package es.xdec0de.securitycore;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -25,9 +25,9 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin implements Listener, TabExecutor {
+public class SecurityCore extends JavaPlugin implements Listener, TabExecutor {
 
-    public static Main plugin;
+    public static SecurityCore plugin;
     FileConfiguration config;
     File cfile;
     ProtocolManager protocolManager;
@@ -48,7 +48,7 @@ public class Main extends JavaPlugin implements Listener, TabExecutor {
                 public void onPacketReceiving(PacketEvent event) {
                     if (event.getPacketType() == PacketType.Play.Client.TAB_COMPLETE) {
                         try {
-                            if (event.getPlayer().hasPermission(Main.this.config.getString("AntiTab-bypass-permission"))) {
+                            if (event.getPlayer().hasPermission(SecurityCore.this.config.getString("AntiTab-bypass-permission"))) {
                                 return;
                             }
                             PacketContainer packet = event.getPacket();
@@ -58,7 +58,7 @@ public class Main extends JavaPlugin implements Listener, TabExecutor {
                             }
                         }
                         catch (FieldAccessException e) {
-                            Main.this.getLogger().log(Level.SEVERE, "Couldn't access field.", e);
+                            SecurityCore.this.getLogger().log(Level.SEVERE, "Couldn't access field.", e);
                         }
                     }
                 }

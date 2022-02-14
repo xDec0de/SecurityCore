@@ -1,5 +1,5 @@
 name: Anti-HiddenSyntax
-main: plugin.Main
+main: es.xdec0de.SecurityCore
 author: herobine117
 depend: [ProtocolLib]
 version: 1.6
