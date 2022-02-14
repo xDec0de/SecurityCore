@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,11 +14,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.comphenix.protocol.ProtocolManager;
 
 import es.xdec0de.securitycore.features.AntiTab;
+import es.xdec0de.securitycore.utils.files.MessageUtils;
 import es.xdec0de.securitycore.utils.files.SCConfig;
 import es.xdec0de.securitycore.utils.files.SCMessages;
 import es.xdec0de.securitycore.utils.files.SCSetting;
 
-public class SecurityCore extends JavaPlugin implements Listener, TabExecutor {
+public class SecurityCore extends JavaPlugin implements Listener {
 
 	public static SecurityCore plugin;
 	public static FileConfiguration config;
@@ -28,10 +28,31 @@ public class SecurityCore extends JavaPlugin implements Listener, TabExecutor {
 
 	public void onEnable() {
 		executeEnable();
+		MessageUtils.log(" ");
+		MessageUtils.logCol("&8|------------------------------------------>");
+		MessageUtils.log(" ");
+		MessageUtils.logCol("       &e&lSecurityCore &8- &aEnabled");
+		MessageUtils.log(" ");
+		MessageUtils.logCol("  &b- &7Author&8: &bxDec0de_");
+		MessageUtils.log(" ");
+		MessageUtils.logCol("  &b- &7Version: &b"+getDescription().getVersion());
+		MessageUtils.log(" ");
+		MessageUtils.logCol("&8|------------------------------------------>");
+		MessageUtils.log(" ");
 	}
 
 	public void onDisable() {
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("disable"))));
+		MessageUtils.log(" ");
+		MessageUtils.logCol("&8|------------------------------------------>");
+		MessageUtils.log(" ");
+		MessageUtils.logCol("       &e&lSecurityCore &8- &cDisabled");
+		MessageUtils.log(" ");
+		MessageUtils.logCol("  &b- &7Author&8: &bxDec0de_");
+		MessageUtils.log(" ");
+		MessageUtils.logCol("  &b- &7Version: &b"+getDescription().getVersion());
+		MessageUtils.log(" ");
+		MessageUtils.logCol("&8|------------------------------------------>");
+		MessageUtils.log(" ");
 	}
 
 	private void executeEnable() {
