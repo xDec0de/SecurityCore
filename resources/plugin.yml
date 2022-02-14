@@ -1,8 +1,8 @@
-name: Anti-HiddenSyntax
+name: ${project.name}
 main: es.xdec0de.SecurityCore
-author: herobine117
+author: xDec0de_
+version: ${project.version}
 depend: [ProtocolLib]
-version: 1.6
 commands:
   ahs:
     usage: /<command>
