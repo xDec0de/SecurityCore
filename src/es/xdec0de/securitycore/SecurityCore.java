@@ -13,12 +13,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.comphenix.protocol.ProtocolManager;
 
 import es.xdec0de.securitycore.features.AntiTab;
+import es.xdec0de.securitycore.utils.files.SCConfig;
+import es.xdec0de.securitycore.utils.files.SCSetting;
 
 public class SecurityCore extends JavaPlugin implements Listener, TabExecutor {
 
@@ -28,23 +29,18 @@ public class SecurityCore extends JavaPlugin implements Listener, TabExecutor {
 	ProtocolManager protocolManager;
 
 	public void onEnable() {
-		plugin = this;
-		config = this.getConfig();
-		config.options().copyDefaults(true);
-		saveConfig();
-		this.cfile = new File(this.getDataFolder(), "config.yml");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("enable"))));
-		this.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)this);
-		this.saveDefaultConfig();
-		if (config.getBoolean("AntiTab-enabled"))
-			AntiTab.setup();
-		else
-			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + "&eWARNING: &4AntiTab &cis disabled, your plugins, spigot version etc... are visible")));
+		executeEnable();
 	}
 
-    public void onDisable() {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("disable"))));
-    }
+	public void onDisable() {
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)(String.valueOf(config.getString("prefix")) + " " + config.getString("disable"))));
+	}
+
+	private void executeEnable() {
+		SCConfig.setup(false);
+		if(SCSetting.ANTITAB_ENABLED.asBoolean())
+			AntiTab.setup();
+	}
 
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent e) {
