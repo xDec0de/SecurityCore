@@ -1,26 +1,39 @@
-# ------------------------------------------
-# | Anti Hidden Syntax v1.6 by herobine117 |
-# ------------------------------------------
-prefix: '&8[&cAHS&8]'
-enable: '&ePlugin enabled.'
-disable: '&4Plugin disabled.'
-syntaxnotallowed: '&cThat syntax is not allowed.'
-notify: '&e%player% &ctried to use &e%command%&c.'
-blocked-cmd: '&cThat command is blocked, try again. ;)'
-reload-msg: '&aPlugin has been reloaded.'
-NotEnoughArgs: '&cNot enough args.'
-usage: '&cUsage: &e/ahs reload&c.'
-warn-message: '&e%player% &cused &e%command%&c.'
-NoPerm: '&cNot enough permissions.'
-notify-console: true
-notify-enabled: true
-warn-console: true
-warn-enabled: true
-AntiTab-enabled: true # Requires server restart to be changed.
-warn-cmds: # Commands that will warn staff on use but they can be used anyway (Requires "notify-enabled" or "notify-console" = true to work).
+# |------------------------------------------------------------------------| #
+# | #                                                                    # | #
+# | #                -----------------------------------                 # | #
+# | #                | SecurityCore v2.0.0 by xDec0de_ |                 # | #
+# | #                -----------------------------------                 # | #
+# | #                                                                    # | #
+# |------------------------------------------------------------------------| #
+
+AHS:
+  Enabled: true
+  BypassPerm: "sc.hiddensyntax.bypass"
+  Notify:
+    Permission: "sc.notify.hiddensyntax"
+    Console: true
+    Players: true
+AntiTab:
+  Enabled: true
+  BypassPerm: "sc.bypass.antitab"
+WarnCMDs:
+  Enabled: true
+  BypassPerm: "sc.bypass.warncmd"
+  Notify:
+    Permission: "sc.notify.warncmd"
+    Console: true
+    Players: true
+  List:
   - /op
   - /deop
-blocked-cmds: # Commands that will be blocked with staff or console notify (if enabled).
+BlockedCMDs:
+  Enabled: true
+  BypassPerm: "sc.bypass.blockcmd"
+  Notify:
+    Permission: "sc.notify.blockcmd"
+    Console: true
+    Players: true
+  List:
   - /help
   - /ver
   - /version
@@ -29,21 +42,4 @@ blocked-cmds: # Commands that will be blocked with staff or console notify (if e
   - /abo
   - /about
   - /?
-ignore-hidden-syntax: #Players that will be able to use hidden syntax (Not recommended, use at your own risk).
-  - herobine117_
-  - bypass
-  - hiddensyntax
-ignore-warn-cmds: #Players that will bypass warn commands.
-  - herobine117_
-  - bypass
-  - warns
-ignore-blocked-cmds: #Players that will bypass blocked commands.
-  - herobine117_
-  - bypass
-  - blockedcmds
-notify-syntax-permission: 'ahs.notify.syntax'
-notify-block-permission: 'ahs.notify.block'
-notify-warn-permission: 'ahs.notify.warn'
-ahs-command-permission: 'ahs.command'
-ahs-reload-permission: 'ahs.reload'
-AntiTab-bypass-permission: 'ahs.antitab.bypass'
+ReloadPerm: "sc.reload"
