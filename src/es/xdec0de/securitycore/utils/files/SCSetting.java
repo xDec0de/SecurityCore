@@ -14,6 +14,9 @@ public enum SCSetting {
 
 	ANTITAB_ENABLED("AntiTab.Enabled"),
 	ANTITAB_BYPASS_PERMISSION("AntiTab.BypassPerm"),
+	ANTITAB_HIDE_ALL("AntiTab.Hide.All"),
+	ANTITAB_HIDE_LIST_CONTAINS("AntiTab.Hide.ListContains"),
+	ANTITAB_HIDE_LIST_EXACT("AntiTab.Hide.ListExact"),
 
 	WARNCMDS_BYPASS_PERMISSION("WarnCMDs.BypassPerm"),
 	WARNCMDS_NOTIFY_PERMISSION("WarnCMDs.Notify.Permission"),

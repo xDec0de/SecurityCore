@@ -10,7 +10,6 @@ import es.xdec0de.securitycore.features.CommandHandler;
 import es.xdec0de.securitycore.utils.files.MessageUtils;
 import es.xdec0de.securitycore.utils.files.SCConfig;
 import es.xdec0de.securitycore.utils.files.SCMessages;
-import es.xdec0de.securitycore.utils.files.SCSetting;
 
 public class SecurityCore extends JavaPlugin implements Listener {
 
@@ -48,9 +47,8 @@ public class SecurityCore extends JavaPlugin implements Listener {
 	private void executeEnable() {
 		SCConfig.setup(false);
 		SCMessages.setup(false);
-		if(SCSetting.ANTITAB_ENABLED.asBoolean())
-			AntiTab.setup();
 		Bukkit.getPluginManager().registerEvents(new CommandHandler(), this);
+		Bukkit.getPluginManager().registerEvents(new AntiTab(), this);
 		getCommand("securitycore").setExecutor(new SCCommand());
 	}
 }

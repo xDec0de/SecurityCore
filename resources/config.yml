@@ -16,6 +16,20 @@ AHS:
 AntiTab:
   Enabled: true
   BypassPerm: "sc.bypass.antitab"
+  Hide:
+    All: false
+    ListContains:
+    - ":"
+    ListExact:
+    - /help
+    - /ver
+    - /version
+    - /pl
+    - /plugins
+    - /abo
+    - /about
+    - /?
+    - /icanhasbukkit
 WarnCMDs:
   BypassPerm: "sc.bypass.warncmd"
   Notify:
@@ -41,4 +55,5 @@ BlockedCMDs:
   - /abo
   - /about
   - /?
+  - /icanhasbukkit
 ReloadPerm: "sc.reload"
