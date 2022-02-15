@@ -16,8 +16,8 @@ public class CommandHandler implements Listener {
 	public void onCommand(PlayerCommandPreprocessEvent e) {
 		Player p = e.getPlayer();
 		String cmd = e.getMessage().split(" ")[0].toLowerCase();
-		e.setCancelled(handleAntiHiddenSyntax(p, cmd));
-		e.setCancelled(handleBlockedCMD(p, cmd));
+		if(handleAntiHiddenSyntax(p, cmd) || handleBlockedCMD(p, cmd))
+			e.setCancelled(true);
 		handleWarnCMD(p, cmd);
 	}
 
