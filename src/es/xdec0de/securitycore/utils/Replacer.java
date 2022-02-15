@@ -51,6 +51,18 @@ public class Replacer {
 	}
 
 	/**
+	 * Adds a replacer to an existing replacer, joining them, note that existing replacements won't be ignored and the new replacer won't overwrite them.
+	 * 
+	 * @param replacer The replacer to add.
+	 * 
+	 * @return The old replacer with the new replacements added to it.
+	 */
+	public Replacer add(Replacer replacer) {
+		replaceList.addAll(replacer.replaceList);
+		return this;
+	}
+
+	/**
 	 * Applies the replacements to the specified string, it the string is null, "null" will be returned.
 	 * 
 	 * @param str The string to apply the replacements to.
