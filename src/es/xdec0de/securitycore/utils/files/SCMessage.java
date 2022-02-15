@@ -59,6 +59,18 @@ public enum SCMessage {
 		return MessageUtils.applyColor(new Replacer("%prefix%", MessageUtils.prefix, "%error%", MessageUtils.errorPrefix).add(replacements).replaceAt(SCMessages.cfg.getString(path)));
 	}
 
+	/**
+	 * Gets a message with colors {@link #applyColor(String)} and the default {@link Replacer}, also, a new replacer made with the 
+	 * specified strings is added to the default replacer.
+	 * 
+	 * @param replacer The replacer to apply.
+	 * 
+	 * @return The message as a string, with colors and replacer applied to it.
+	 */
+	public String asString(Replacer replacer) {
+		return MessageUtils.applyColor(new Replacer("%prefix%", MessageUtils.prefix, "%error%", MessageUtils.errorPrefix).add(replacer).replaceAt(SCMessages.cfg.getString(path)));
+	}
+
 	// Senders //
 
 	/**
@@ -85,6 +97,21 @@ public enum SCMessage {
 	 */
 	public void send(CommandSender sender, String... replacements) {
 		String send = asString(replacements);
+		if(send != null && !send.isEmpty())
+			sender.sendMessage(send);
+	}
+
+	/**
+	 * Sends a message with colors {@link #applyColor(String)} and the default {@link Replacer}, also, a new replacer made with 
+	 * the specified strings is added to the default replacer, empty messages will be ignored and the message wont be sent.
+	 * 
+	 * @param sender The sender that will receive the message.
+	 * @param replacer The replacer to apply.
+	 * 
+	 * @see #getMessage(SCMessage, String...)
+	 */
+	public void send(CommandSender sender, Replacer replacer) {
+		String send = asString(replacer);
 		if(send != null && !send.isEmpty())
 			sender.sendMessage(send);
 	}
