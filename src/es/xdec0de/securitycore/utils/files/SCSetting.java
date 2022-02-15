@@ -1,5 +1,7 @@
 package es.xdec0de.securitycore.utils.files;
 
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 
 public enum SCSetting {
@@ -13,7 +15,6 @@ public enum SCSetting {
 	ANTITAB_ENABLED("AntiTab.Enabled"),
 	ANTITAB_BYPASS_PERMISSION("AntiTab.BypassPerm"),
 
-	WARNCMDS_ENABLED("WarnCMDs.Enabled"),
 	WARNCMDS_BYPASS_PERMISSION("WarnCMDs.BypassPerm"),
 	WARNCMDS_NOTIFY_PERMISSION("WarnCMDs.Notify.Permission"),
 	WARNCMDS_NOTIFY_CONSOLE("WarnCMDs.Notify.Console"),
@@ -60,6 +61,10 @@ public enum SCSetting {
 	 */
 	public boolean asBoolean() {
 		return SCConfig.cfg.getBoolean(path);
+	}
+
+	public List<String> asList() {
+		return SCConfig.cfg.getStringList(path);
 	}
 
 	/**

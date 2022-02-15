@@ -17,7 +17,6 @@ AntiTab:
   Enabled: true
   BypassPerm: "sc.bypass.antitab"
 WarnCMDs:
-  Enabled: true
   BypassPerm: "sc.bypass.warncmd"
   Notify:
     Permission: "sc.notify.warncmd"
