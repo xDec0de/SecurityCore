@@ -20,4 +20,4 @@ BlockedCMDs:
   Blocked: "%error% &cThat command is blocked, try again. ;)"
 Reload:
   Success: "&aPlugin has been reloaded."
-  Usage: "&cUsage: &e/sc reload&c."
+  Usage: "&cUsage: &e/securitycore reload&c."
