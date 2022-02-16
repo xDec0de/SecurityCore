@@ -5,6 +5,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import es.xdec0de.securitycore.api.MCVersion;
+import es.xdec0de.securitycore.api.SecurityCoreAPI;
 import es.xdec0de.securitycore.features.AntiTab;
 import es.xdec0de.securitycore.features.CommandHandler;
 import es.xdec0de.securitycore.utils.files.MessageUtils;
@@ -17,6 +19,7 @@ public class SecurityCore extends JavaPlugin implements Listener {
 
 	public void onEnable() {
 		executeEnable();
+		MCVersion ver = SecurityCoreAPI.getInstance().getServerVersion();
 		MessageUtils.log(" ");
 		MessageUtils.logCol("&8|------------------------------------------>");
 		MessageUtils.log(" ");
@@ -24,13 +27,17 @@ public class SecurityCore extends JavaPlugin implements Listener {
 		MessageUtils.log(" ");
 		MessageUtils.logCol("  &b- &7Author&8: &bxDec0de_");
 		MessageUtils.log(" ");
-		MessageUtils.logCol("  &b- &7Version: &b"+getDescription().getVersion());
+		if(ver.isSupported())
+			MessageUtils.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &b"+ver.getName());
+		else
+			MessageUtils.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &4"+ver.getName()+" &8- &cUnsupported version&8.");
 		MessageUtils.log(" ");
 		MessageUtils.logCol("&8|------------------------------------------>");
 		MessageUtils.log(" ");
 	}
 
 	public void onDisable() {
+		MCVersion ver = SecurityCoreAPI.getInstance().getServerVersion();
 		MessageUtils.log(" ");
 		MessageUtils.logCol("&8|------------------------------------------>");
 		MessageUtils.log(" ");
@@ -38,7 +45,10 @@ public class SecurityCore extends JavaPlugin implements Listener {
 		MessageUtils.log(" ");
 		MessageUtils.logCol("  &b- &7Author&8: &bxDec0de_");
 		MessageUtils.log(" ");
-		MessageUtils.logCol("  &b- &7Version: &b"+getDescription().getVersion());
+		if(ver.isSupported())
+			MessageUtils.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &b"+ver.getName());
+		else
+			MessageUtils.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &4"+ver.getName()+" &8- &cUnsupported version&8.");
 		MessageUtils.log(" ");
 		MessageUtils.logCol("&8|------------------------------------------>");
 		MessageUtils.log(" ");
