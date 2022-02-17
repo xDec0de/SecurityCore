@@ -50,6 +50,6 @@ public enum MCVersion {
 	}
 
 	public boolean supports(MCVersion version) {
-		return version.verID >= this.verID;
+		return verID >= version.verID;
 	}
 }
