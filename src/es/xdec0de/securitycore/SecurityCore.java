@@ -7,8 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import es.xdec0de.securitycore.api.MCVersion;
 import es.xdec0de.securitycore.api.SecurityCoreAPI;
-import es.xdec0de.securitycore.features.AntiTabLatest;
-import es.xdec0de.securitycore.features.AntiTabPre14;
+import es.xdec0de.securitycore.features.AntiTab;
 import es.xdec0de.securitycore.features.CommandHandler;
 import es.xdec0de.securitycore.features.RedstoneLimiter;
 import es.xdec0de.securitycore.utils.files.Config;
@@ -22,8 +21,8 @@ public class SecurityCore extends JavaPlugin implements Listener {
 	private final Messages msg = new Messages(this);
 
 	public void onEnable() {
-		executeEnable();
 		MCVersion ver = SecurityCoreAPI.getInstance().getServerVersion();
+		executeEnable(ver);
 		msg.log(" ");
 		msg.logCol("&8|------------------------------------------>");
 		msg.log(" ");
@@ -58,12 +57,9 @@ public class SecurityCore extends JavaPlugin implements Listener {
 		msg.log(" ");
 	}
 
-	private void executeEnable() {
+	private void executeEnable(MCVersion ver) {
 		Bukkit.getPluginManager().registerEvents(new CommandHandler(this), this);
-		if(SecurityCoreAPI.getInstance().getServerVersion().supports(MCVersion.V1_14))
-			Bukkit.getPluginManager().registerEvents(new AntiTabLatest(this), this);
-		else
-			Bukkit.getPluginManager().registerEvents(new AntiTabPre14(this), this);
+		new AntiTab(this, ver); // AntiTab registers events on it's constructor.
 		getCommand("securitycore").setExecutor(new SCCommand(this));
 		getServer().getPluginManager().registerEvents(new RedstoneLimiter(this), this);
 	}
