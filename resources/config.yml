@@ -57,3 +57,6 @@ BlockedCMDs:
   - /?
   - /icanhasbukkit
 ReloadPerm: "sc.reload"
+RedstoneLimiter:
+  Enabled: true
+  MaxPulsesPerSecond: 4

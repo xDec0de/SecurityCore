@@ -14,15 +14,17 @@ import es.xdec0de.securitycore.SecurityCore;
 
 public class RedstoneLimiter implements Listener {
 
+	private final SecurityCore plugin;
 	HashMap<Location, Integer> pulses = new HashMap<>();
 
 	public RedstoneLimiter(SecurityCore plugin) {
+		this.plugin = plugin;
 		Bukkit.getScheduler().runTaskTimer(plugin, () -> checkPulses(), 20, 20);
 	}
 
 	private void checkPulses() {
 		pulses.forEach((loc, exec) -> {
-			if (exec > 4)
+			if (exec > plugin.getCfg().getInt("RedstoneLimiter.MaxPulsesPerSecond"))
 				loc.getWorld().getBlockAt(loc).breakNaturally();
 		});
 		pulses.clear();
