@@ -6,6 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
 import es.xdec0de.securitycore.SecurityCore;
@@ -28,12 +30,24 @@ public class RedstoneLimiter implements Listener {
 
 	@EventHandler
 	public void onRedstone(BlockRedstoneEvent e) {
-		Location loc = e.getBlock().getLocation();
+		handleRedstonePulse(e.getBlock().getLocation());
+	}
+
+	@EventHandler
+	public void onPistonRetract(BlockPistonRetractEvent e) {
+		handleRedstonePulse(e.getBlock().getLocation());
+	}
+
+	@EventHandler
+	public void onPistonRetract(BlockPistonExtendEvent e) {
+		handleRedstonePulse(e.getBlock().getLocation());
+	}
+
+	private void handleRedstonePulse(Location loc) {
 		Integer exec = executions.get(loc);
 		if (exec == null)
 			executions.put(loc, 1);
 		else
 			executions.put(loc, exec + 1);
 	}
-
 }
