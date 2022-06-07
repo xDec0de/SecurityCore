@@ -2,7 +2,6 @@ name: ${project.name}
 main: es.xdec0de.securitycore.SecurityCore
 author: xDec0de_
 version: ${project.version}
-depend: [ProtocolLib]
 commands:
   securitycore:
     usage: /<command>
