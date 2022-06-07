@@ -14,18 +14,18 @@ import es.xdec0de.securitycore.SecurityCore;
 
 public class RedstoneLimiter implements Listener {
 
-	HashMap<Location, Integer> executions = new HashMap<>();
+	HashMap<Location, Integer> pulses = new HashMap<>();
 
 	public RedstoneLimiter(SecurityCore plugin) {
-		Bukkit.getScheduler().runTaskTimer(plugin, () -> checkExecutions(), 20, 20);
+		Bukkit.getScheduler().runTaskTimer(plugin, () -> checkPulses(), 20, 20);
 	}
 
-	private void checkExecutions() {
-		executions.forEach((loc, exec) -> {
+	private void checkPulses() {
+		pulses.forEach((loc, exec) -> {
 			if (exec > 4)
 				loc.getWorld().getBlockAt(loc).breakNaturally();
 		});
-		executions.clear();
+		pulses.clear();
 	}
 
 	@EventHandler
@@ -44,10 +44,10 @@ public class RedstoneLimiter implements Listener {
 	}
 
 	private void handleRedstonePulse(Location loc) {
-		Integer exec = executions.get(loc);
+		Integer exec = pulses.get(loc);
 		if (exec == null)
-			executions.put(loc, 1);
+			pulses.put(loc, 1);
 		else
-			executions.put(loc, exec + 1);
+			pulses.put(loc, exec + 1);
 	}
 }
