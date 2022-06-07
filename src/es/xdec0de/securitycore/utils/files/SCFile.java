@@ -106,6 +106,10 @@ public class SCFile {
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', str));
 	}
 
+	public FileConfiguration getFile() {
+		return cfg;
+	}
+
 	class Utf8YamlConfiguration extends YamlConfiguration {
 
 		@Override

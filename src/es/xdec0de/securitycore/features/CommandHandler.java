@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import es.xdec0de.securitycore.SecurityCore;
 import es.xdec0de.securitycore.utils.Replacer;
-import es.xdec0de.securitycore.utils.files.SCSetting;
+import es.xdec0de.securitycore.utils.files.Config;
 
 public class CommandHandler implements Listener {
 
@@ -28,15 +28,16 @@ public class CommandHandler implements Listener {
 	}
 
 	private boolean handleAntiHiddenSyntax(Player p, String cmd) {
-		if(SCSetting.AHS_ENABLED.asBoolean() && !SCSetting.AHS_BYPASS_PERMISSION.asPermission(p, false)) {
+		Config cfg = plugin.getCfg();
+		if (cfg.getBoolean("AHS.Enabled") && !cfg.hasPermission("AHS.BypassPerm", p, false)) {
 			if(cmd.contains(":")) {
 				Replacer rep = new Replacer("%command%", cmd, "%player%", p.getName());
 				plugin.getMessages().send("AHS.NotAllowed", p, rep);
 				String notify = plugin.getMessages().get("AHS.Notify", rep);
-				if(SCSetting.AHS_NOTIFY_CONSOLE.asBoolean())
+				if (cfg.getBoolean("AHS.Notify.Console"))
 					Bukkit.getConsoleSender().sendMessage(notify);
-				if(SCSetting.AHS_NOTIFY_PLAYERS.asBoolean())
-					Bukkit.getOnlinePlayers().stream().filter(on -> SCSetting.AHS_NOTIFY_PERMISSION.asPermission(on, false)).forEach(on -> on.sendMessage(notify));
+				if (cfg.getBoolean("AHS.Notify.Players"))
+					Bukkit.getOnlinePlayers().stream().filter(on -> cfg.hasPermission("AHS.Notify.Permission", on, false)).forEach(on -> on.sendMessage(notify));
 				return true;
 			}
 		}
@@ -44,17 +45,16 @@ public class CommandHandler implements Listener {
 	}
 
 	private boolean handleBlockedCMD(Player p, String cmd) {
-		boolean console = SCSetting.BLOCKEDCMDS_NOTIFY_CONSOLE.asBoolean();
-		boolean players = SCSetting.BLOCKEDCMDS_NOTIFY_PLAYERS.asBoolean();
-		if((console || players) && !SCSetting.BLOCKEDCMDS_BYPASS_PERMISSION.asPermission(p, false)) {
-			if(SCSetting.BLOCKEDCMDS_LIST.asList().contains(cmd)) {
+		Config cfg = plugin.getCfg();
+		if (cfg.getBoolean("BlockedCMDs.Enabled") && !cfg.hasPermission("BlockedCMDs.BypassPerm", p, false)) {
+			if(cfg.getList("BlockedCMDs.List").contains(cmd)) {
 				Replacer rep = new Replacer("%command%", cmd, "%player%", p.getName());
 				plugin.getMessages().send("BlockedCMDs.Blocked", p, rep);
 				String notify = plugin.getMessages().get("BlockedCMDs.Notify", rep);
-				if(console)
+				if(cfg.getBoolean("BlockedCMDs.Notify.Console"))
 					Bukkit.getConsoleSender().sendMessage(notify);
-				if(players)
-					Bukkit.getOnlinePlayers().stream().filter(on -> SCSetting.BLOCKEDCMDS_NOTIFY_PERMISSION.asPermission(on, false)).forEach(on -> on.sendMessage(notify));
+				if(cfg.getBoolean("BlockedCMDs.Notify.Players"))
+					Bukkit.getOnlinePlayers().stream().filter(on -> cfg.hasPermission("BlockedCMDs.Notify.Permission", p, false)).forEach(on -> on.sendMessage(notify));
 				return true;
 			}
 		}
@@ -62,16 +62,17 @@ public class CommandHandler implements Listener {
 	}
 
 	private void handleWarnCMD(Player p, String cmd) {
-		boolean console = SCSetting.WARNCMDS_NOTIFY_CONSOLE.asBoolean();
-		boolean players = SCSetting.WARNCMDS_NOTIFY_PLAYERS.asBoolean();
-		if((console || players) && !SCSetting.WARNCMDS_BYPASS_PERMISSION.asPermission(p, false)) {
-			if(SCSetting.WARNCMDS_LIST.asList().contains(cmd)) {
+		Config cfg = plugin.getCfg();
+		boolean console = cfg.getBoolean("WarnCMDs.Notify.Console");
+		boolean players = cfg.getBoolean("WarnCMDs.Notify.Players");
+		if((console || players) && !cfg.hasPermission("WarnCMDs.BypassPerm", p, false)) {
+			if(cfg.getList("WarnCMDs.List").contains(cmd)) {
 				Replacer rep = new Replacer("%command%", cmd, "%player%", p.getName());
 				String notify = plugin.getMessages().get("WarnCMDs.Notify", rep);
 				if(console)
 					Bukkit.getConsoleSender().sendMessage(notify);
 				if(players)
-					Bukkit.getOnlinePlayers().stream().filter(on -> SCSetting.WARNCMDS_NOTIFY_PERMISSION.asPermission(on, false)).forEach(on -> on.sendMessage(notify));
+					Bukkit.getOnlinePlayers().stream().filter(on -> cfg.hasPermission("WarnCMDs.Notify.Permission", p, false)).forEach(on -> on.sendMessage(notify));
 			}
 		}
 	}

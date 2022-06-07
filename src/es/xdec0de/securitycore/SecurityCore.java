@@ -11,13 +11,14 @@ import es.xdec0de.securitycore.features.AntiTabLatest;
 import es.xdec0de.securitycore.features.AntiTabPre14;
 import es.xdec0de.securitycore.features.CommandHandler;
 import es.xdec0de.securitycore.features.RedstoneLimiter;
+import es.xdec0de.securitycore.utils.files.Config;
 import es.xdec0de.securitycore.utils.files.Messages;
-import es.xdec0de.securitycore.utils.files.SCConfig;
 
 public class SecurityCore extends JavaPlugin implements Listener {
 
 	public static FileConfiguration config;
 
+	private final Config cfg = new Config(this);
 	private final Messages msg = new Messages(this);
 
 	public void onEnable() {
@@ -58,14 +59,22 @@ public class SecurityCore extends JavaPlugin implements Listener {
 	}
 
 	private void executeEnable() {
-		SCConfig.setup(false);
 		Bukkit.getPluginManager().registerEvents(new CommandHandler(this), this);
 		if(SecurityCoreAPI.getInstance().getServerVersion().supports(MCVersion.V1_14))
-			Bukkit.getPluginManager().registerEvents(new AntiTabLatest(), this);
+			Bukkit.getPluginManager().registerEvents(new AntiTabLatest(this), this);
 		else
-			Bukkit.getPluginManager().registerEvents(new AntiTabPre14(), this);
+			Bukkit.getPluginManager().registerEvents(new AntiTabPre14(this), this);
 		getCommand("securitycore").setExecutor(new SCCommand(this));
 		getServer().getPluginManager().registerEvents(new RedstoneLimiter(this), this);
+	}
+
+	public Config getCfg() {
+		return cfg;
+	}
+
+	@Override
+	public FileConfiguration getConfig() {
+		return cfg.getFile();
 	}
 
 	public Messages getMessages() {

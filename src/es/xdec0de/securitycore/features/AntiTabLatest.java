@@ -7,17 +7,25 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 
-import es.xdec0de.securitycore.utils.files.SCSetting;
+import es.xdec0de.securitycore.SecurityCore;
+import es.xdec0de.securitycore.utils.files.Config;
 
 public class AntiTabLatest implements Listener {
 
+	private final SecurityCore plugin;
+
+	public AntiTabLatest(SecurityCore plugin) {
+		this.plugin = plugin;
+	}
+
 	@EventHandler
 	public void onCommandSend(PlayerCommandSendEvent e) {
-		if(SCSetting.ANTITAB_ENABLED.asBoolean() && !SCSetting.ANTITAB_BYPASS_PERMISSION.asPermission(e.getPlayer(), false)) {
-			List<String> checkContains = SCSetting.ANTITAB_HIDE_LIST_CONTAINS.asList();
-			List<String> checkExact = SCSetting.ANTITAB_HIDE_LIST_EXACT.asList();
+		Config cfg = plugin.getCfg();
+		if(cfg.getBoolean("AntiTab.Enabled") && !cfg.hasPermission("AntiTab.BypassPerm", e.getPlayer(), false)) {
+			List<String> checkContains = cfg.getList("AntiTab.Hide.ListContains");
+			List<String> checkExact = cfg.getList("AntiTab.Hide.ListExact");
 			List<String> commands = new LinkedList<String>();
-			if(!SCSetting.ANTITAB_HIDE_ALL.asBoolean()) {
+			if(!cfg.getBoolean("AntiTab.Hide.All")) {
 				commands.addAll(e.getCommands());
 				for(String cmd : e.getCommands()) {
 					for(String check : checkExact)
