@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerCommandSendEvent;
 
 import es.xdec0de.securitycore.utils.files.SCSetting;
 
-public class AntiTab implements Listener {
+public class AntiTabLatest implements Listener {
 
 	@EventHandler
 	public void onCommandSend(PlayerCommandSendEvent e) {

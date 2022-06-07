@@ -7,8 +7,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import es.xdec0de.securitycore.api.MCVersion;
 import es.xdec0de.securitycore.api.SecurityCoreAPI;
-import es.xdec0de.securitycore.features.AntiTab;
+import es.xdec0de.securitycore.features.AntiTabLatest;
+import es.xdec0de.securitycore.features.AntiTabPre14;
 import es.xdec0de.securitycore.features.CommandHandler;
+import es.xdec0de.securitycore.features.RedstoneLimiter;
 import es.xdec0de.securitycore.utils.files.MessageUtils;
 import es.xdec0de.securitycore.utils.files.SCConfig;
 import es.xdec0de.securitycore.utils.files.SCMessages;
@@ -58,7 +60,11 @@ public class SecurityCore extends JavaPlugin implements Listener {
 		SCConfig.setup(false);
 		SCMessages.setup(false);
 		Bukkit.getPluginManager().registerEvents(new CommandHandler(), this);
-		Bukkit.getPluginManager().registerEvents(new AntiTab(), this);
+		if(SecurityCoreAPI.getInstance().getServerVersion().supports(MCVersion.V1_14))
+			Bukkit.getPluginManager().registerEvents(new AntiTabLatest(), this);
+		else
+			Bukkit.getPluginManager().registerEvents(new AntiTabPre14(), this);
 		getCommand("securitycore").setExecutor(new SCCommand());
+		getServer().getPluginManager().registerEvents(new RedstoneLimiter(this), this);
 	}
 }
