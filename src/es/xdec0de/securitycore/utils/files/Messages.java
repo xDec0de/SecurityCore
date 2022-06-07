@@ -78,7 +78,7 @@ public class Messages extends SCFile {
 	}
 
 	Replacer getDefaultReplacer() {
-		return new Replacer("%prefix%", cfg.getString("PREFIX"), "%error%", cfg.getString("ERROR_PREFIX"));
+		return new Replacer("%prefix%", cfg.getString("SecurityCore.Prefix"), "%error%", cfg.getString("SecurityCore.Error"));
 	}
 
 	public String get(String path) {
