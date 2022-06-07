@@ -21,15 +21,15 @@ AntiTab:
     ListContains:
     - ":"
     ListExact:
-    - /help
-    - /ver
-    - /version
-    - /pl
-    - /plugins
-    - /abo
-    - /about
-    - /?
-    - /icanhasbukkit
+    - "help"
+    - "ver"
+    - "version"
+    - "pl"
+    - "plugins"
+    - "abo"
+    - "about"
+    - "?"
+    - "icanhasbukkit"
 WarnCMDs:
   BypassPerm: "sc.bypass.warncmd"
   Notify:
