@@ -8,8 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 
+import es.xdec0de.securitycore.MCVersion;
 import es.xdec0de.securitycore.SecurityCore;
-import es.xdec0de.securitycore.api.MCVersion;
 import es.xdec0de.securitycore.utils.files.Config;
 
 @SuppressWarnings("deprecation")

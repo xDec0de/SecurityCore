@@ -1,4 +1,4 @@
-package es.xdec0de.securitycore.api;
+package es.xdec0de.securitycore;
 
 import org.bukkit.Bukkit;
 
