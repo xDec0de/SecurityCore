@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 
-import es.xdec0de.securitycore.utils.files.MessageUtils;
 import es.xdec0de.securitycore.utils.files.SCSetting;
 
 @SuppressWarnings("deprecation")
@@ -15,7 +14,6 @@ public class AntiTabPre14 implements Listener {
 
 	@EventHandler
 	public void onTabComplete(PlayerChatTabCompleteEvent e) {
-		MessageUtils.logCol("&7Fired pre 1.14 event.");
 		if(SCSetting.ANTITAB_ENABLED.asBoolean() && !SCSetting.ANTITAB_BYPASS_PERMISSION.asPermission(e.getPlayer(), false)) {
 			List<String> checkContains = SCSetting.ANTITAB_HIDE_LIST_CONTAINS.asList();
 			List<String> checkExact = SCSetting.ANTITAB_HIDE_LIST_EXACT.asList();

@@ -11,60 +11,64 @@ import es.xdec0de.securitycore.features.AntiTabLatest;
 import es.xdec0de.securitycore.features.AntiTabPre14;
 import es.xdec0de.securitycore.features.CommandHandler;
 import es.xdec0de.securitycore.features.RedstoneLimiter;
-import es.xdec0de.securitycore.utils.files.MessageUtils;
+import es.xdec0de.securitycore.utils.files.Messages;
 import es.xdec0de.securitycore.utils.files.SCConfig;
-import es.xdec0de.securitycore.utils.files.SCMessages;
 
 public class SecurityCore extends JavaPlugin implements Listener {
 
 	public static FileConfiguration config;
 
+	private final Messages msg = new Messages(this);
+
 	public void onEnable() {
 		executeEnable();
 		MCVersion ver = SecurityCoreAPI.getInstance().getServerVersion();
-		MessageUtils.log(" ");
-		MessageUtils.logCol("&8|------------------------------------------>");
-		MessageUtils.log(" ");
-		MessageUtils.logCol("       &e&lSecurityCore &8- &aEnabled");
-		MessageUtils.log(" ");
-		MessageUtils.logCol("  &b- &7Author&8: &bxDec0de_");
-		MessageUtils.log(" ");
+		msg.log(" ");
+		msg.logCol("&8|------------------------------------------>");
+		msg.log(" ");
+		msg.logCol("       &e&lSecurityCore &8- &aEnabled");
+		msg.log(" ");
+		msg.logCol("  &b- &7Author&8: &bxDec0de_");
+		msg.log(" ");
 		if(ver.isSupported())
-			MessageUtils.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &b"+ver.getName());
+			msg.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &b"+ver.getName());
 		else
-			MessageUtils.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &4"+ver.getName()+" &8- &cUnsupported version&8.");
-		MessageUtils.log(" ");
-		MessageUtils.logCol("&8|------------------------------------------>");
-		MessageUtils.log(" ");
+			msg.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &4"+ver.getName()+" &8- &cUnsupported version&8.");
+		msg.log(" ");
+		msg.logCol("&8|------------------------------------------>");
+		msg.log(" ");
 	}
 
 	public void onDisable() {
 		MCVersion ver = SecurityCoreAPI.getInstance().getServerVersion();
-		MessageUtils.log(" ");
-		MessageUtils.logCol("&8|------------------------------------------>");
-		MessageUtils.log(" ");
-		MessageUtils.logCol("       &e&lSecurityCore &8- &cDisabled");
-		MessageUtils.log(" ");
-		MessageUtils.logCol("  &b- &7Author&8: &bxDec0de_");
-		MessageUtils.log(" ");
+		msg.log(" ");
+		msg.logCol("&8|------------------------------------------>");
+		msg.log(" ");
+		msg.logCol("       &e&lSecurityCore &8- &cDisabled");
+		msg.log(" ");
+		msg.logCol("  &b- &7Author&8: &bxDec0de_");
+		msg.log(" ");
 		if(ver.isSupported())
-			MessageUtils.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &b"+ver.getName());
+			msg.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &b"+ver.getName());
 		else
-			MessageUtils.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &4"+ver.getName()+" &8- &cUnsupported version&8.");
-		MessageUtils.log(" ");
-		MessageUtils.logCol("&8|------------------------------------------>");
-		MessageUtils.log(" ");
+			msg.logCol("  &b- &7Version&8: &b"+getDescription().getVersion()+" &8| &7MC &4"+ver.getName()+" &8- &cUnsupported version&8.");
+		msg.log(" ");
+		msg.logCol("&8|------------------------------------------>");
+		msg.log(" ");
 	}
 
 	private void executeEnable() {
 		SCConfig.setup(false);
-		SCMessages.setup(false);
-		Bukkit.getPluginManager().registerEvents(new CommandHandler(), this);
+		Bukkit.getPluginManager().registerEvents(new CommandHandler(this), this);
 		if(SecurityCoreAPI.getInstance().getServerVersion().supports(MCVersion.V1_14))
 			Bukkit.getPluginManager().registerEvents(new AntiTabLatest(), this);
 		else
 			Bukkit.getPluginManager().registerEvents(new AntiTabPre14(), this);
-		getCommand("securitycore").setExecutor(new SCCommand());
+		getCommand("securitycore").setExecutor(new SCCommand(this));
 		getServer().getPluginManager().registerEvents(new RedstoneLimiter(this), this);
+	}
+
+	public Messages getMessages() {
+		return msg;
 	}
 }

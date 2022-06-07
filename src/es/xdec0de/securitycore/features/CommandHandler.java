@@ -6,11 +6,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
+import es.xdec0de.securitycore.SecurityCore;
 import es.xdec0de.securitycore.utils.Replacer;
-import es.xdec0de.securitycore.utils.files.SCMessage;
 import es.xdec0de.securitycore.utils.files.SCSetting;
 
 public class CommandHandler implements Listener {
+
+	private final SecurityCore plugin;
+
+	public CommandHandler(SecurityCore plugin) {
+		this.plugin = plugin;
+	}
 
 	@EventHandler
 	public void onCommand(PlayerCommandPreprocessEvent e) {
@@ -25,8 +31,8 @@ public class CommandHandler implements Listener {
 		if(SCSetting.AHS_ENABLED.asBoolean() && !SCSetting.AHS_BYPASS_PERMISSION.asPermission(p, false)) {
 			if(cmd.contains(":")) {
 				Replacer rep = new Replacer("%command%", cmd, "%player%", p.getName());
-				SCMessage.AHS_NOT_ALLOWED.send(p, rep);
-				String notify = SCMessage.AHS_NOTIFY.asString(rep);
+				plugin.getMessages().send("AHS.NotAllowed", p, rep);
+				String notify = plugin.getMessages().get("AHS.Notify", rep);
 				if(SCSetting.AHS_NOTIFY_CONSOLE.asBoolean())
 					Bukkit.getConsoleSender().sendMessage(notify);
 				if(SCSetting.AHS_NOTIFY_PLAYERS.asBoolean())
@@ -43,8 +49,8 @@ public class CommandHandler implements Listener {
 		if((console || players) && !SCSetting.BLOCKEDCMDS_BYPASS_PERMISSION.asPermission(p, false)) {
 			if(SCSetting.BLOCKEDCMDS_LIST.asList().contains(cmd)) {
 				Replacer rep = new Replacer("%command%", cmd, "%player%", p.getName());
-				String notify = SCMessage.BLOCKEDCMDS_NOTIFY.asString(rep);
-				SCMessage.BLOCKEDCMDS_BLOCKED.send(p);
+				plugin.getMessages().send("BlockedCMDs.Blocked", p, rep);
+				String notify = plugin.getMessages().get("BlockedCMDs.Notify", rep);
 				if(console)
 					Bukkit.getConsoleSender().sendMessage(notify);
 				if(players)
@@ -61,7 +67,7 @@ public class CommandHandler implements Listener {
 		if((console || players) && !SCSetting.WARNCMDS_BYPASS_PERMISSION.asPermission(p, false)) {
 			if(SCSetting.WARNCMDS_LIST.asList().contains(cmd)) {
 				Replacer rep = new Replacer("%command%", cmd, "%player%", p.getName());
-				String notify = SCMessage.WARNCMDS_NOTIFY.asString(rep);
+				String notify = plugin.getMessages().get("WarnCMDs.Notify", rep);
 				if(console)
 					Bukkit.getConsoleSender().sendMessage(notify);
 				if(players)
