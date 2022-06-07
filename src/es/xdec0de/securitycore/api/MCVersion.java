@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 
 public enum MCVersion {
 
+	V1_19(19, "1.19"),
 	V1_18(18, "1.18"),
 	V1_17(17, "1.17"),
 	V1_16(16, "1.16"),
