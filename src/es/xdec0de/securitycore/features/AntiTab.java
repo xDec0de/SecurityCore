@@ -28,10 +28,10 @@ public class AntiTab {
 		public void onCommandSend(PlayerCommandSendEvent e) {
 			Config cfg = plugin.getCfg();
 			if(cfg.getBoolean("AntiTab.Enabled") && !cfg.hasPermission("AntiTab.BypassPerm", e.getPlayer(), false)) {
-				List<String> checkContains = cfg.getList("AntiTab.Hide.ListContains");
-				List<String> checkExact = cfg.getList("AntiTab.Hide.ListExact");
 				List<String> commands = new LinkedList<String>();
 				if(!cfg.getBoolean("AntiTab.Hide.All")) {
+					List<String> checkContains = cfg.getList("AntiTab.Hide.ListContains");
+					List<String> checkExact = cfg.getList("AntiTab.Hide.ListExact");
 					commands.addAll(e.getCommands());
 					for(String cmd : e.getCommands()) {
 						for(String check : checkExact)
@@ -53,10 +53,10 @@ public class AntiTab {
 		public void onTabComplete(PlayerChatTabCompleteEvent e) {
 			Config cfg = plugin.getCfg();
 			if(cfg.getBoolean("AntiTab.Enabled") && !cfg.hasPermission("AntiTab.BypassPerm", e.getPlayer(), false)) {
-				List<String> checkContains = cfg.getList("AntiTab.Hide.ListContains");
-				List<String> checkExact = cfg.getList("AntiTab.Hide.ListExact");
 				List<String> commands = new LinkedList<String>();
 				if(!cfg.getBoolean("AntiTab.Hide.All")) {
+					List<String> checkContains = cfg.getList("AntiTab.Hide.ListContains");
+					List<String> checkExact = cfg.getList("AntiTab.Hide.ListExact");
 					commands.addAll(e.getTabCompletions());
 					for(String cmd : e.getTabCompletions()) {
 						for(String check : checkExact)
