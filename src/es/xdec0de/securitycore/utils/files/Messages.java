@@ -1,5 +1,7 @@
 package es.xdec0de.securitycore.utils.files;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,6 +93,39 @@ public class Messages extends SCFile {
 
 	public String get(String path, String... replacements) {
 		return applyColor(getDefaultReplacer().add(replacements).replaceAt(cfg.getString(path)));
+	}
+
+	public List<String> getList(String path) {
+		List<String> atCfg = cfg.getStringList(path);
+		List<String> res = new ArrayList<>();
+		if (atCfg == null || atCfg.isEmpty())
+			return res; 
+		Replacer rep = getDefaultReplacer();
+		for (String str : atCfg)
+			res.add(applyColor(rep.replaceAt(str)));
+		return res;
+	}
+
+	public List<String> getList(String path, Replacer replacer) {
+		List<String> atCfg = cfg.getStringList(path);
+		List<String> res = new ArrayList<>();
+		if (atCfg == null || atCfg.isEmpty())
+			return res; 
+		Replacer rep = getDefaultReplacer().add(replacer);
+		for (String str : atCfg)
+			res.add(applyColor(rep.replaceAt(str)));
+		return res;
+	}
+
+	public List<String> getList(String path, String... replacements) {
+		List<String> atCfg = cfg.getStringList(path);
+		List<String> res = new ArrayList<>();
+		if (atCfg == null || atCfg.isEmpty())
+			return res; 
+		Replacer rep = getDefaultReplacer().add(replacements);
+		for (String str : atCfg)
+			res.add(applyColor(rep.replaceAt(str)));
+		return res;
 	}
 
 	public void send(String path, CommandSender sender) {
