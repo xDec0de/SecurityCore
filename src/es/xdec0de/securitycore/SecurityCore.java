@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import es.xdec0de.securitycore.features.AntiTab;
 import es.xdec0de.securitycore.features.CommandHandler;
 import es.xdec0de.securitycore.features.RedstoneLimiter;
+import es.xdec0de.securitycore.features.SettingChanger;
 import es.xdec0de.securitycore.utils.files.Config;
 import es.xdec0de.securitycore.utils.files.Messages;
 
@@ -59,6 +60,7 @@ public class SecurityCore extends JavaPlugin implements Listener {
 		Bukkit.getPluginManager().registerEvents(new CommandHandler(this), this);
 		new AntiTab(this, ver); // AntiTab registers events on it's constructor.
 		getCommand("securitycore").setExecutor(new SCCommand(this));
+		getCommand("scsetting").setExecutor(new SettingChanger(this));
 		getServer().getPluginManager().registerEvents(new RedstoneLimiter(this), this);
 	}
 
