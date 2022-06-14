@@ -17,7 +17,17 @@ WarnCMDs:
   Notify: "%prefix% &6%player% &cused &e%command%&c."
 BlockedCMDs:
   Notify: "%prefix% &6%player% &ctried to use &e%command%&c."
-  Blocked: "%error% &cThat command is blocked, try again. ;)"
+  Blocked: "%error% That command is blocked, try again. ;)"
 Reload:
-  Success: "&aPlugin has been reloaded."
-  Usage: "&cUsage: &e/securitycore reload&c."
+  Success: "%prefix% &aPlugin has been reloaded."
+  Usage: "%error% Usage&8: &8/&esecuritycore reload&c."
+CreativeExposer:
+  Enabled: true
+  Lore:
+  - " "
+  - "&6> &7Creative item by &b%player%"
+SCSetting:
+  Changed: "%prefix% &6%path% &7has been changed to &b%value%&7."
+  Usage: "%error% Usage&8: /&escsetting setint &8<&epath&8> <&evalue&8>&c."
+  InvalidPath: "%error% That path is invalid for the specified setting type."
+  IntInvalid: "%error% The value for this setting must be a number higher than 0."

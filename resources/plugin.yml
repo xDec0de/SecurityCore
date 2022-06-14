@@ -4,6 +4,9 @@ author: xDec0de_
 version: ${project.version}
 commands:
   securitycore:
-    usage: /<command>
+    usage: /<command> reload
     description: Main command of the plugin.
     aliases: [seccore]
+  scsetting:
+    usage: /<command> setint <path> <value>
+    description: Manage SecurityCore's settings.

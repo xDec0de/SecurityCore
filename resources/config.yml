@@ -60,3 +60,5 @@ ReloadPerm: "sc.reload"
 RedstoneLimiter:
   Enabled: true
   MaxPulsesPerSecond: 4
+SCSetting:
+  Permission: "sc.settings"
