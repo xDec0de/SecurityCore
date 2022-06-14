@@ -48,6 +48,15 @@ public class SCFile {
 		cfg = YamlConfiguration.loadConfiguration(file);
 	}
 
+	public boolean save() {
+		try {
+			cfg.save(file);
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
+	}
+
 	private File copyInputStreamToFile(String path, InputStream inputStream) {
 		File file = new File(path);
 		try (FileOutputStream outputStream = new FileOutputStream(file)) {
@@ -64,6 +73,7 @@ public class SCFile {
 
 	private boolean update(boolean reload) {
 		final String prefix = "&7[&b&lSecurity&9&lCore&7]";
+		cfg = YamlConfiguration.loadConfiguration(file);
 		try {
 			int changes = 0;
 			Utf8YamlConfiguration updated = new Utf8YamlConfiguration();
