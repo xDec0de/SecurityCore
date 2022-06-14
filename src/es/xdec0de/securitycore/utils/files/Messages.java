@@ -24,7 +24,7 @@ public class Messages extends SCFile {
 	public String applyColor(String string) {
 		if(string == null)
 			return "null";
-		char COLOR_CHAR = '\u00A7';
+		char COLOR_CHAR = 0x00A7;
 		Matcher matcher = HEX_PATTERN.matcher(string);
 		StringBuffer buffer = new StringBuffer(string.length() + 4 * 8);
 		while (matcher.find()) {
