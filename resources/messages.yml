@@ -27,7 +27,7 @@ CreativeExposer:
   - " "
   - "&6> &7Creative item by &b%player%"
 SCSetting:
-  Changed: "%prefix% &6%path% &7has been changed to &b%value%&7."
-  Usage: "%error% Usage&8: /&escsetting setint &8<&epath&8> <&evalue&8>&c."
-  InvalidPath: "%error% That path is invalid for the specified setting type."
-  IntInvalid: "%error% The value for this setting must be a number higher than 0."
+  Changed: "%prefix% &6%setting% &7has been set to &b%value%&7."
+  Usage: "%error% Usage&8: /&escsetting &8<&esetint&8/&esetbool&8/&esetstr&8> <&epath&8> <&evalue&8>&c."
+  InvalidSetting: "%error% That setting doesn't exist."
+  InvalidValue: "%error% That value is not valid for the specified setting."
