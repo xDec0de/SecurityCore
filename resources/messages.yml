@@ -28,6 +28,10 @@ CreativeExposer:
   - "&6> &7Creative item by &b%player%"
 SCSetting:
   Changed: "%prefix% &6%setting% &7has been set to &b%value%&7."
+  Added: "%prefix% &b%value% &7has been &aadded &7to &6%setting%&7."
+  NotAdded: "%error% &6%setting% &calready contains &e%value%&c."
+  Removed: "%prefix% &b%value% &7has been &cremoved &7from &6%setting%&7."
+  NotRemoved: "%error% &6%setting% &cdoes not contain &e%value%&c."
   Usage: "%error% Usage&8: /&escsetting &8<&esetint&8/&esetbool&8/&esetstr&8> <&epath&8> <&evalue&8>&c."
   InvalidSetting: "%error% That setting doesn't exist."
   InvalidValue: "%error% That value is not valid for the specified setting."

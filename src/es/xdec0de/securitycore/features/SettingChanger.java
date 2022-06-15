@@ -27,8 +27,8 @@ public class SettingChanger implements TabExecutor {
 		if (args.length == 3) {
 			String mode = args[0].toLowerCase();
 			SettingType type = getTypeFromCmd(mode);
-			if (type != null && mode.contains("set"))
-				return handleSet(sender, args, type); // Always returns true.
+			if (type != null)
+				return handleChange(sender, args, type); // Always returns true.
 		}
 		plugin.getMessages().send("SCSetting.Usage", sender);
 		return true;
@@ -39,16 +39,11 @@ public class SettingChanger implements TabExecutor {
 		if (!plugin.getCfg().hasPermission("SCSetting.Permission", sender, false))
 			return new ArrayList<>();
 		if (args.length == 1)
-			return Arrays.asList("setint", "setbool", "setstr");
+			return Arrays.asList("setint", "setbool", "setstr", "listadd", "listrem");
 		if (args.length == 2) {
 			String mode = args[0].toLowerCase();
-			if (mode.equals("setint"))
-				return SCSetting.namesOfType(SettingType.INT);
-			else if (mode.equals("setbool") || mode.equals("setboolean"))
-				return SCSetting.namesOfType(SettingType.BOOLEAN);
-			else if (mode.equals("setstr") || mode.equals("setstring"))
-				return SCSetting.namesOfType(SettingType.STRING);
-			return new ArrayList<>();
+			SettingType type = getTypeFromCmd(mode);
+			return type != null ? SCSetting.namesOfType(type) : new ArrayList<>();
 		}
 		if (args.length == 3) {
 			String mode = args[0].toLowerCase();
@@ -58,7 +53,7 @@ public class SettingChanger implements TabExecutor {
 		return null;
 	}
 
-	private boolean handleSet(CommandSender sender, String[] args, SettingType type) {
+	private boolean handleChange(CommandSender sender, String[] args, SettingType type) {
 		SCSetting setting = SCSetting.of(args[1]);
 		String value = args[2];
 		if (setting == null)
@@ -66,7 +61,21 @@ public class SettingChanger implements TabExecutor {
 		else if (!setting.allows(value))
 			plugin.getMessages().send("SCSetting.InvalidValue", sender);
 		else {
-			if (type.equals(SettingType.INT))
+			if (type.equals(SettingType.STRING_LIST)) {
+				String mode = args[0].toLowerCase();
+				List<String> lst = plugin.getCfg().getList(setting.getPath());
+				if (mode.contains("add")) {
+					boolean contains = lst.contains(value);
+					String path = !contains ? "SCSetting.Added" : "SCSetting.NotAdded";
+					if (!contains)
+						lst.add(value);
+					plugin.getMessages().send(path, sender, "%setting%", setting.name(), "%value%", value);
+				} else {
+					String path = lst.remove(value) ? "SCSetting.Removed" : "SCSetting.NotRemoved";
+					plugin.getMessages().send(path, sender, "%setting%", setting.name(), "%value%", value);
+				}
+				plugin.getCfg().getFile().set(setting.getPath(), lst);
+			} else if (type.equals(SettingType.INT))
 				plugin.getCfg().getFile().set(setting.getPath(), Integer.valueOf(value));
 			else if (type.equals(SettingType.BOOLEAN))
 				plugin.getCfg().getFile().set(setting.getPath(), Boolean.valueOf(value));
@@ -74,7 +83,8 @@ public class SettingChanger implements TabExecutor {
 				plugin.getCfg().getFile().set(setting.getPath(), value);
 			plugin.getCfg().save();
 			plugin.getCfg().reload(false);
-			plugin.getMessages().send("SCSetting.Changed", sender, "%setting%", setting.name(), "%value%", value);
+			if (!type.equals(SettingType.STRING_LIST))
+				plugin.getMessages().send("SCSetting.Changed", sender, "%setting%", setting.name(), "%value%", value);
 		}
 		return true;
 	}
@@ -84,6 +94,7 @@ public class SettingChanger implements TabExecutor {
 		case "setint": return SettingType.INT;
 		case "setboolean": case "setbool": return SettingType.BOOLEAN;
 		case "setstr": case "setstring": return SettingType.STRING;
+		case "listadd": case "listrem": case "listremove": return SettingType.STRING_LIST;
 		default: return null;
 		}
 	}
