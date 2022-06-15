@@ -36,7 +36,7 @@ public enum SCSetting {
 	RELOAD_PERM("ReloadPerm", SettingType.STRING),
 
 	REDSTONELIMITER_ENABLED("RedstoneLimiter.Enabled", SettingType.BOOLEAN),
-	REDSTONELIMITER_MAX_PPS("RedstoneLimiter.Enabled", SettingType.INT) {
+	REDSTONELIMITER_MAX_PPS("RedstoneLimiter.MaxPulsesPerSecond", SettingType.INT) {
 		@Override
 		public boolean allows(String value) {
 			return StringUtils.isNumeric(value) ? Integer.valueOf(value) > 0 : false;
